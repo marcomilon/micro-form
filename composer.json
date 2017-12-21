@@ -1,0 +1,24 @@
+{
+  "name": "fullstackpe/micro-form",
+  "description": "Form builder",
+  "license": "MIT",
+  "keywords": ["form builder"],
+  "authors": [
+    {
+      "name": "Marco Milon",
+      "email": "marco.milon@gmail.com",
+      "homepage": "https://github.com/marcomilon"      
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "require-dev": {
+    "atoum/atoum": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "micro\\": "src"
+    }
+  }
+}
