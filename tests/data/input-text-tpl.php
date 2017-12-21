@@ -1,0 +1,6 @@
+<?php
+
+$microForm = [
+    'name',
+    'lastname'
+];
