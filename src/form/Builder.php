@@ -4,8 +4,17 @@ namespace micro\form;
 
 class Builder
 {
+    
     private $inputs = [
-        'text'
+        'text' => '/views/input-text.php',
+        'email' => '/views/input-text.php',
+        'textarea' => '/views/textarea.php'
+    ];
+    
+    private $optionalParameters = [
+        'label',
+        'id',
+        'placeholder'
     ];
     
     public function render($microForm) 
@@ -17,36 +26,51 @@ class Builder
             throw new \Exception("The form variable is not valid. It need to be an array");
         }
         
-        foreach($microForm as $input) {
-            $input = $this->sanitazeInput($input);
+        foreach($microForm as $inputType => $parameters) {
+            $input = $this->sanitazeInput($inputType, $parameters);
             
-            $output .= $this->renderInput(dirname(__FILE__) . '/views/input-text.php', $input);
+            $inputType = !is_array($parameters) ? 'text' : $inputType;
+            $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputType], $input);
             $output .= PHP_EOL;
         }
         
         return $output;
     }
     
-    private function sanitazeInput($input) 
+    private function sanitazeInput($inputType, $parameters) 
     {
-        if(is_array($input)) {
-            $inputType = key($input);
+        if(is_array($parameters)) {
             
-            if(!in_array($inputType, $this->inputs)) {
-                throw new \Exception("Unsupported input tag.");
+            if(!array_key_exists($inputType, $this->inputs)) {
+                throw new \Exception("Unsupported input tag: $inputType");
             }
             
-            foreach($input as $k => $v) {
+            if(!isset($parameters['name'])) {
+                throw new \Exception("Name parameter is required.");
+            }
+            
+            $input = [];
+            $input['inputType'] = $inputType;
+            $input['name'] = $parameters['name'];
+            
+            foreach($parameters as $name => $value) {
                 
+                foreach($this->optionalParameters as $optionalParameter) {
+                    if(isset($parameters[$optionalParameter])) {
+                        $input[$optionalParameter] = $parameters[$optionalParameter];
+                    }
+                }
+                
+                $input['label'] = isset($input['label']) ? ucfirst($input['label']) : ucfirst($input['name']);
             }
             
             return $input;
         } 
         
         $input = [
-            'label' => ucfirst($input),
-            'for' => $input,
-            "name" => $input                    
+            'inputType' => 'text',
+            'label' => ucfirst($parameters),
+            "name" => $parameters
         ];
         
         return $input;
