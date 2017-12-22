@@ -1,5 +1,5 @@
 <?php
 
 $microForm = [
-    ['email' => 'name']
+    'cv' => ['name']
 ];
