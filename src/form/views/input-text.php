@@ -1,9 +1,4 @@
 <div class="form-group">
-  <label for="name">Name</label>
-  <input type="text" class="form-control" name="name">
+    <label for="<?= $for ?>"><?= $label ?></label>
+    <input type="text" class="form-control" name="<?= $name ?>"<?= isset($placeholder) ? ' placeholder="<?= $placeholder ?>"' : ''?>>
 </div>
-<?php 
-
-echo $microForm;exit();
-
-?>
