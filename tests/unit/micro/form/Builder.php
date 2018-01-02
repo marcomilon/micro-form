@@ -9,7 +9,7 @@ class Builder extends atoum
     
     public function testInputSimpleText() 
     {
-        include dirname(__FILE__) . '/../../../data/simple/input-text-tpl.php';
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text.html';
     
         $builder = new \micro\form\Builder();
@@ -19,7 +19,7 @@ class Builder extends atoum
     
     public function testInputSimpleTextarea() 
     {
-        include dirname(__FILE__) . '/../../../data/textarea/textarea-tpl.php';
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/textarea/textarea-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/textarea/textarea.html';
     
         $builder = new \micro\form\Builder();
@@ -29,7 +29,7 @@ class Builder extends atoum
     
     public function testInputComplexText() 
     {
-        include dirname(__FILE__) . '/../../../data/complex/input-text-tpl.php';
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/complex/input-text-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/complex/input-text.html';
     
         $builder = new \micro\form\Builder();
@@ -39,7 +39,7 @@ class Builder extends atoum
     
     public function testInputComplexEmail() 
     {
-        include dirname(__FILE__) . '/../../../data/complex/input-email-tpl.php';
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/complex/input-email-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/complex/input-email.html';
     
         $builder = new \micro\form\Builder();
@@ -49,7 +49,7 @@ class Builder extends atoum
     
     public function testInputUnsuported() 
     {
-        include dirname(__FILE__) . '/../../../data/complex/input-unsupported-tpl.php';
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/complex/input-unsupported-tpl.json');
     
         $builder = new \micro\form\Builder();
     

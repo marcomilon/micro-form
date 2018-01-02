@@ -22,58 +22,56 @@ class Builder
         
         $output = '';
         
+        $microForm = json_decode($microForm, true);                
+        
         if(!is_array($microForm)) {
-            throw new \Exception("The form variable is not valid. It need to be an array");
+            throw new \Exception("The form variable is not valid.");
         }
         
-        foreach($microForm as $inputType => $parameters) {
-            $input = $this->sanitazeInput($inputType, $parameters);
+        foreach($microForm as $input) {
+            $inputToRender = $this->sanitazeInput($input);
             
-            $inputType = !is_array($parameters) ? 'text' : $inputType;
-            $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputType], $input);
+            $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputToRender['input']], $inputToRender);
             $output .= PHP_EOL;
         }
         
         return $output;
     }
     
-    private function sanitazeInput($inputType, $parameters) 
+    private function sanitazeInput($input) 
     {
-        if(is_array($parameters)) {
+        if(is_array($input)) {
             
-            if(!array_key_exists($inputType, $this->inputs)) {
-                throw new \Exception("Unsupported input tag: $inputType");
+            if(!array_key_exists($input['input'], $this->inputs)) {
+                throw new \Exception("Unsupported input tag: " . $input['input']);
             }
             
-            if(!isset($parameters['name'])) {
+            if(!isset($input['name'])) {
                 throw new \Exception("Name parameter is required.");
             }
             
-            $input = [];
-            $input['inputType'] = $inputType;
-            $input['name'] = $parameters['name'];
+            $inputToRender = [];
+            $inputToRender['input'] = $input['input'];
+            $inputToRender['name'] = $input['name'];
             
-            foreach($parameters as $name => $value) {
-                
-                foreach($this->optionalParameters as $optionalParameter) {
-                    if(isset($parameters[$optionalParameter])) {
-                        $input[$optionalParameter] = $parameters[$optionalParameter];
-                    }
+            foreach($this->optionalParameters as $optionalParameter) {
+                if(isset($input[$optionalParameter])) {
+                    $inputToRender[$optionalParameter] = $input[$optionalParameter];
                 }
-                
-                $input['label'] = isset($input['label']) ? ucfirst($input['label']) : ucfirst($input['name']);
             }
             
-            return $input;
+            $inputToRender['label'] = isset($inputToRender['label']) ? ucfirst($inputToRender['label']) : ucfirst($inputToRender['name']);
+            
+            return $inputToRender;
         } 
         
-        $input = [
-            'inputType' => 'text',
-            'label' => ucfirst($parameters),
-            "name" => $parameters
+        $inputToRender = [
+            'input' => 'text',
+            'label' => ucfirst($input),
+            "name" => $input
         ];
         
-        return $input;
+        return $inputToRender;
     }
     
     private function renderInput($file, $params) 
