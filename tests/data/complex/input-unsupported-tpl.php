@@ -1,5 +1,0 @@
-<?php
-
-$microForm = [
-    'cv' => ['name']
-];
