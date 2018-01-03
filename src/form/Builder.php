@@ -17,7 +17,7 @@ class Builder
         'placeholder'
     ];
     
-    public function render($microForm) 
+    public function render($microForm, $values = []) 
     {
         
         $output = '';
@@ -29,7 +29,12 @@ class Builder
         }
         
         foreach($microForm as $input) {
-            $inputToRender = $this->sanitazeInput($input);
+            if(!empty($values)) {
+                $value = array_shift($values);
+                $inputToRender = $this->sanitazeInput($input, $value);
+            } else {
+                $inputToRender = $this->sanitazeInput($input);
+            }
             
             $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputToRender['input']], $inputToRender);
             $output .= PHP_EOL;
@@ -38,7 +43,7 @@ class Builder
         return $output;
     }
     
-    private function sanitazeInput($input) 
+    private function sanitazeInput($input, $value = '') 
     {
         if(is_array($input)) {
             
@@ -54,6 +59,10 @@ class Builder
             $inputToRender['input'] = $input['input'];
             $inputToRender['name'] = $input['name'];
             
+            if(!empty($value)) {
+                $inputToRender['value'] = $value;
+            }
+            
             foreach($this->optionalParameters as $optionalParameter) {
                 if(isset($input[$optionalParameter])) {
                     $inputToRender[$optionalParameter] = $input[$optionalParameter];
@@ -68,8 +77,12 @@ class Builder
         $inputToRender = [
             'input' => 'text',
             'label' => ucfirst($input),
-            "name" => $input
+            'name' => $input
         ];
+        
+        if(!empty($value)) {
+            $inputToRender['value'] = $value;
+        }
         
         return $inputToRender;
     }
