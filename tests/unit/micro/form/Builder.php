@@ -59,4 +59,24 @@ class Builder extends atoum
             }
         )->hasMessage('Unsupported input tag: cv');
     }
+    
+    public function testInputSimpleTextValue() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text-value.html';
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm, ['marco', 'milon']);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
+    
+    public function testInputSimpleTextareaValue() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/textarea/textarea-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/textarea/textarea-value.html';
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm, ['Esta es el contenido']);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
 }
