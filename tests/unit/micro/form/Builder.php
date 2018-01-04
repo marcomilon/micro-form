@@ -66,7 +66,7 @@ class Builder extends atoum
         $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text-value.html';
     
         $builder = new \micro\form\Builder();
-        $form = $builder->render($microForm, ['marco', 'milon']);
+        $form = $builder->render($microForm, ['name' => 'marco', 'lastname' => 'milon']);
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
     }
     
@@ -76,7 +76,7 @@ class Builder extends atoum
         $expectedRendering = dirname(__FILE__) . '/../../../data/textarea/textarea-value.html';
     
         $builder = new \micro\form\Builder();
-        $form = $builder->render($microForm, ['Esta es el contenido']);
+        $form = $builder->render($microForm, ['description' => 'Esta es el contenido']);
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
     }
 }
