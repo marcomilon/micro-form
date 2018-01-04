@@ -30,8 +30,7 @@ class Builder
         
         foreach($microForm as $input) {
             if(!empty($values)) {
-                $value = array_shift($values);
-                $inputToRender = $this->sanitazeInput($input, $value);
+                $inputToRender = $this->sanitazeInput($input, $values);
             } else {
                 $inputToRender = $this->sanitazeInput($input);
             }
@@ -43,7 +42,7 @@ class Builder
         return $output;
     }
     
-    private function sanitazeInput($input, $value = '') 
+    private function sanitazeInput($input, $values = '') 
     {
         if(is_array($input)) {
             
@@ -59,8 +58,8 @@ class Builder
             $inputToRender['input'] = $input['input'];
             $inputToRender['name'] = $input['name'];
             
-            if(!empty($value)) {
-                $inputToRender['value'] = $value;
+            if(!empty($values) && array_key_exists($input['name'], $values)) {
+                $inputToRender['value'] = $values[$input['name']];
             }
             
             foreach($this->optionalParameters as $optionalParameter) {
@@ -80,8 +79,8 @@ class Builder
             'name' => $input
         ];
         
-        if(!empty($value)) {
-            $inputToRender['value'] = $value;
+        if(!empty($values) && array_key_exists($input, $values)) {
+            $inputToRender['value'] = $values[$input];
         }
         
         return $inputToRender;
