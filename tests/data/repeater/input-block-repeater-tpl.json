@@ -1,0 +1,14 @@
+[
+    {
+        "users": [
+            {
+                "input": "text",
+                "name": "username"
+            },
+            {
+                "input": "text",
+                "name": "password"
+            }
+        ]
+    }
+]

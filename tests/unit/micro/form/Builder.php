@@ -83,10 +83,20 @@ class Builder extends atoum
     public function testRepeatInputSimpleText() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-text-repeater-tpl.json');
-        $expectedRendering = dirname(__FILE__) . '/../../../data/repeater/input-text-repeater.html';
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
         $this->string($form)->contains('repeater')->contains('script')->contains('username[]');
     }
+    
+    public function testRepeatBlock() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-block-repeater-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/repeater/input-block-repeater.html';
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm);
+        $this->string($form)->contains('repeater')->contains('script')->contains('users')->contains('users[]');
+    }
+    
 }
