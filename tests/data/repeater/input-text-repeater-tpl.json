@@ -1,0 +1,7 @@
+[
+    {
+        "input": "text",
+        "name": "username",
+        "repeat": true
+    }
+]
