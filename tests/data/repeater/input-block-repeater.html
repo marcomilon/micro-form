@@ -1,0 +1,22 @@
+<div>
+    <a href="#" id="add-element">Add Item</a>
+</div>
+<div id="repeater">
+    <div id="users">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="users[][username]">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="text" class="form-control" name="users[][password]">
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById("add-element").addEventListener("click", function() {    
+    var itm = document.getElementById("repeater").lastElementChild;
+    var cln = itm.cloneNode(true);
+    document.getElementById("repeater").appendChild(cln);
+});
+</script>

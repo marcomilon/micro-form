@@ -16,7 +16,8 @@ class Builder
         'label',
         'id',
         'placeholder',
-        'repeat'
+        'repeat',
+        'blockId'
     ];
     
     public function render($microForm, $values = []) 
@@ -30,18 +31,36 @@ class Builder
             throw new \Exception("The form variable is not valid.");
         }
         
-        foreach($microForm as $input) {
-            $inputToRender = $this->sanitazeInput($input, $values);
-            
-            $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputToRender['input']], $inputToRender);
-            $output .= PHP_EOL;
-        }
-        
-        if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
-            ob_start();
-            require dirname(__FILE__) . $this->repeatTemplate;
-            $out = ob_get_clean();        
-            return $out;
+        foreach($microForm as $input) {            
+            if($this->isBlock($input)) {
+                
+                $blockId = key($input);   
+                $inputs = current($input);
+                             
+                $output .= '<div id="'.$blockId.'">';
+                foreach($inputs as $blockInputs) {
+                    $blockInputs['blockId'] = $blockId;
+                    $output .= $this->renderInput($blockInputs, $values);
+                    $output .= PHP_EOL;
+                }
+                $output .= '</div>';
+                
+                ob_start();
+                require dirname(__FILE__) . $this->repeatTemplate;
+                $out = ob_get_clean();
+                return $out;
+                
+            } else {
+                $output .= $this->renderInput($input, $values);
+                $output .= PHP_EOL;
+                
+                if(isset($input['repeat']) && $input['repeat'] == true) {
+                    ob_start();
+                    require dirname(__FILE__) . $this->repeatTemplate;
+                    $out = ob_get_clean();        
+                    return $out;
+                }
+            }
         }
         
         return $output;
@@ -50,7 +69,6 @@ class Builder
     private function sanitazeInput($input, $values = '') 
     {
         if(is_array($input)) {
-            
             if(!array_key_exists($input['input'], $this->inputs)) {
                 throw new \Exception("Unsupported input tag: " . $input['input']);
             }
@@ -91,21 +109,33 @@ class Builder
         return $inputToRender;
     }
     
-    private function renderInput($file, $params) 
+    private function renderInput($input, $values) 
     {
+        $inputToRender = $this->sanitazeInput($input, $values);
+        $file = dirname(__FILE__) . $this->inputs[$inputToRender['input']];
         if (file_exists($file)) {
             
-            if(isset($params['repeat']) && $params['repeat'] == true) {
-                $params['name'] = $params['name'] ."[]";    
+            if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
+                $inputToRender['name'] = $inputToRender['name'] .'[]';    
+            }
+            
+            if(isset($inputToRender['blockId'])) {
+                $inputToRender['name'] = $inputToRender['blockId'].'[]'.$inputToRender['name'];
             }
             
             ob_start();
-            extract($params);
+            extract($inputToRender);
             require $file;
             $out = ob_get_clean();        
             return $out;
         } else {
             throw new \Exception("The view file does not exist: $file");
         }
+    }
+    
+    private function isBlock($input) 
+    {
+        $firstInput = is_array($input) ? current($input) : '';
+        return is_array($firstInput);
     }
 }
