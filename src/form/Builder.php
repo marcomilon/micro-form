@@ -4,6 +4,7 @@ namespace micro\form;
 
 class Builder
 {
+    private $repeatTemplate = '/views/repeat.php';
     
     private $inputs = [
         'text' => '/views/input-text.php',
@@ -14,7 +15,8 @@ class Builder
     private $optionalParameters = [
         'label',
         'id',
-        'placeholder'
+        'placeholder',
+        'repeat'
     ];
     
     public function render($microForm, $values = []) 
@@ -29,14 +31,17 @@ class Builder
         }
         
         foreach($microForm as $input) {
-            if(!empty($values)) {
-                $inputToRender = $this->sanitazeInput($input, $values);
-            } else {
-                $inputToRender = $this->sanitazeInput($input);
-            }
+            $inputToRender = $this->sanitazeInput($input, $values);
             
             $output .= $this->renderInput(dirname(__FILE__) . $this->inputs[$inputToRender['input']], $inputToRender);
             $output .= PHP_EOL;
+        }
+        
+        if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
+            ob_start();
+            require dirname(__FILE__) . $this->repeatTemplate;
+            $out = ob_get_clean();        
+            return $out;
         }
         
         return $output;
@@ -89,6 +94,11 @@ class Builder
     private function renderInput($file, $params) 
     {
         if (file_exists($file)) {
+            
+            if(isset($params['repeat']) && $params['repeat'] == true) {
+                $params['name'] = $params['name'] ."[]";    
+            }
+            
             ob_start();
             extract($params);
             require $file;
