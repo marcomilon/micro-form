@@ -22,7 +22,6 @@ class Builder
     
     public function render($microForm, $values = []) 
     {
-        
         $output = '';
         
         $microForm = json_decode($microForm, true);                
@@ -31,24 +30,24 @@ class Builder
             throw new \Exception("The form variable is not valid.");
         }
         
-        foreach($microForm as $input) {            
-            if($this->isBlock($input)) {
-                
+        foreach($microForm as $input) {
+            $isBlock = $this->isBlock($input);
+            $uniqueId = uniqid();
+            
+            if($isBlock) {
+                                
                 $blockId = key($input);   
                 $inputs = current($input);
-                             
-                $output .= '<div id="'.$blockId.'">';
+                
                 foreach($inputs as $blockInputs) {
                     $blockInputs['blockId'] = $blockId;
                     $output .= $this->renderInput($blockInputs, $values);
                     $output .= PHP_EOL;
                 }
-                $output .= '</div>';
                 
                 ob_start();
                 require dirname(__FILE__) . $this->repeatTemplate;
-                $out = ob_get_clean();
-                return $out;
+                $output = ob_get_clean();
                 
             } else {
                 $output .= $this->renderInput($input, $values);
@@ -57,8 +56,7 @@ class Builder
                 if(isset($input['repeat']) && $input['repeat'] == true) {
                     ob_start();
                     require dirname(__FILE__) . $this->repeatTemplate;
-                    $out = ob_get_clean();        
-                    return $out;
+                    $output = ob_get_clean();
                 }
             }
         }
