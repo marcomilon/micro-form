@@ -1,16 +1,16 @@
-<div>
-    <a href="#" id="add-element">Add Item</a>
+<div class="new-item">
+    <a href="#" id="new-item__button-4b3403665fea6" class="new-item__button">Add Item</a>
 </div>
-<div id="repeater">
+<div class="repeater" id="repeater-4b3403665fea6">
     <div class="form-group">
         <label>Username</label>
         <input type="text" class="form-control" name="username[]">
     </div>
 </div>
 <script>
-document.getElementById("add-element").addEventListener("click", function() {    
-    var itm = document.getElementById("repeater").lastElementChild;
+document.getElementById("new-item__button-4b3403665fea6").addEventListener("click", function() {    
+    var itm = document.getElementById("repeater-4b3403665fea6").lastElementChild;
     var cln = itm.cloneNode(true);
-    document.getElementById("repeater").appendChild(cln);
+    document.getElementById("repeater-4b3403665fea6").appendChild(cln);
 });
 </script>
