@@ -118,7 +118,7 @@ class Builder
             }
             
             if(isset($inputToRender['blockId'])) {
-                $inputToRender['name'] = $inputToRender['blockId'].'[]'.$inputToRender['name'];
+                $inputToRender['name'] = $inputToRender['blockId'].'[0]'.$inputToRender['name'];
             }
             
             ob_start();

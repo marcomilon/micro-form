@@ -5,11 +5,11 @@
     <div id="users" class="repeater__block">
         <div class="form-group">
             <label>Username</label>
-            <input type="text" class="form-control" name="users[][username]">
+            <input type="text" class="form-control" name="users[0][username]">
         </div>
         <div class="form-group">
             <label>Password</label>
-            <input type="text" class="form-control" name="users[][password]">
+            <input type="text" class="form-control" name="users[0][password]">
         </div>
     </div>
 </div>
@@ -17,6 +17,19 @@
 document.getElementById("new-item__button-4b3403665fea6").addEventListener("click", function() {    
     var itm = document.getElementById("repeater-4b3403665fea6").lastElementChild;
     var cln = itm.cloneNode(true);
+    
+    var inputNodes = cln.getElementsByTagName('input');
+    for(var i = 0; i < inputNodes.length; i++){
+        var inputNode = inputNodes[i];
+        var index = inputNode.name.match(/[0-9]+/);
+        var tokens = inputNode.name.split(/[0-9]+/);
+        
+        var newIndex = parseInt(index) + 1;
+        var name = tokens[0] + newIndex + tokens[1];
+        inputNode.name = name;
+        inputNode.value = '';
+    }
+    
     document.getElementById("repeater-4b3403665fea6").appendChild(cln);
 });
 </script>
