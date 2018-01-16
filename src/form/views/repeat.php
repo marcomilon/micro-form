@@ -17,6 +17,9 @@ document.getElementById("new-item__button-<?= $uniqueId ?>").addEventListener("c
         var index = inputNode.name.match(/[0-9]+/);
         var tokens = inputNode.name.split(/[0-9]+/);
         
+        console.log(index);
+        console.log(tokens);
+        
         var newIndex = parseInt(index) + 1;
         var name = tokens[0] + newIndex + tokens[1];
         inputNode.name = name;
