@@ -86,7 +86,11 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        $this->string($form)->matches('#new-item__button-[a-z0-9]{13}#')->matches('#repeater-[a-z0-9]{13}#')->contains('script')->contains('username[]');
+        $this->string($form)->contains('toolbar--add')
+                            ->contains('repeater')
+                            ->contains('element')
+                            ->contains('toolbar--delete')
+                            ->contains('username[]');
     }
     
     public function testRepeatBlock() 
@@ -96,7 +100,12 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        $this->string($form)->matches('#new-item__button-[a-z0-9]{13}#')->matches('#repeater-[a-z0-9]{13}#')->contains('repeater')->contains('script')->contains('users')->contains('users[0]');
+        $this->string($form)->contains('toolbar--add')
+                            ->contains('repeater')
+                            ->contains('element')
+                            ->contains('toolbar--delete')
+                            ->contains('users[0][username]')
+                            ->contains('users[0][password]');
     }
     
 }
