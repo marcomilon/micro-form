@@ -18,7 +18,7 @@ $(document).ready(function() {
         });
     });
     
-    $(document).on('click', '.toolbar--delete', function(e) {
+    $(document).on('click', '.toolbar--delete__delete', function(e) {
         e.preventDefault();
         $(this).parent().parent().remove();
     })
