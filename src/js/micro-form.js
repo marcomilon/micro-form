@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    $('.toolbar__add').click(function(e)  {
+    $('.toolbar--add__add').click(function(e)  {
         e.preventDefault();
         $(this).parent().next().children().last().clone().appendTo(".repeater");
     });
     
-    $('.toolbar__add--block').click(function(e)  {
+    $('.toolbar--add__block').click(function(e)  {
         e.preventDefault();
         $(this).parent().next().children().last().clone().appendTo(".repeater");
         $(this).parent().next().children().last().find(':input').each(function(index) {
@@ -18,7 +18,7 @@ $(document).ready(function() {
         });
     });
     
-    $(document).on('click', '.toolbar__delete', function(e) {
+    $(document).on('click', '.toolbar--delete', function(e) {
         e.preventDefault();
         $(this).parent().parent().remove();
     })

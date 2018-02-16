@@ -32,9 +32,9 @@ class Builder
         
         foreach($microForm as $input) {
             
-            $isBlock = $this->isBlock($input);
+            $block = $this->isBlock($input);
             
-            if($isBlock) { 
+            if($block) { 
                 
                 $blockId = key($input);
                 $inputs = current($input);
