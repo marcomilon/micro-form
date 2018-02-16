@@ -2,6 +2,10 @@ $(document).ready(function() {
     $('.toolbar--add__add').click(function(e)  {
         e.preventDefault();
         $(this).parent().next().children().last().clone().appendTo(".repeater");
+        var count = $(this).parent().next().children().length;
+        if(count > 1) {
+            $(this).parent().next().children().last().find('.toolbar--delete').css('display', 'block');
+        }
     });
     
     $('.toolbar--add__block').click(function(e)  {
@@ -16,6 +20,10 @@ $(document).ready(function() {
             var newName = tokens[0] + newIndex + tokens[1];
             $(this).attr('name', newName);
         });
+        var count = $(this).parent().next().children().length;
+        if(count > 1) {
+            $(this).parent().next().children().last().find('.toolbar--delete').css('display', 'block');
+        }
     });
     
     $(document).on('click', '.toolbar--delete__delete', function(e) {
