@@ -1,0 +1,29 @@
+<div class="toolbar--add">
+    <a href="#" class="toolbar--add__add">Add Item</a>
+</div>
+<div class="repeater">
+    <div class="element">
+        <div class="toolbar--delete">
+            <a href="#" class="toolbar--delete__delete">Delete Item</a>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username[]">
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.toolbar__add').click(function(e)  {
+        e.preventDefault();
+        $(this).parent().next().children().last().clone().appendTo(".repeater");
+    });
+    
+    $(document).on('click', '.toolbar__delete', function(e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+    })
+});
+</script>

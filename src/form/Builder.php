@@ -31,12 +31,12 @@ class Builder
         }
         
         foreach($microForm as $input) {
-            $isBlock = $this->isBlock($input);
-            $uniqueId = uniqid();
             
-            if($isBlock) {
-                                
-                $blockId = key($input);   
+            $isBlock = $this->isBlock($input);
+            
+            if($isBlock) { 
+                
+                $blockId = key($input);
                 $inputs = current($input);
                 
                 foreach($inputs as $blockInputs) {
@@ -46,22 +46,54 @@ class Builder
                 }
                 
                 ob_start();
+                $repeat = true;
                 require dirname(__FILE__) . $this->repeatTemplate;
                 $output = ob_get_clean();
                 
             } else {
+                
                 $output .= $this->renderInput($input, $values);
                 $output .= PHP_EOL;
                 
                 if(isset($input['repeat']) && $input['repeat'] == true) {
                     ob_start();
+                    $repeat = true;
                     require dirname(__FILE__) . $this->repeatTemplate;
                     $output = ob_get_clean();
                 }
+                
             }
         }
         
         return $output;
+    }
+    
+    private function renderInput($input, $values) 
+    {
+        $inputToRender = $this->sanitazeInput($input, $values);
+        $file = dirname(__FILE__) . $this->inputs[$inputToRender['input']];
+        
+        if (file_exists($file)) {
+            
+            if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
+                $inputToRender['name'] = $inputToRender['name'] .'[]';    
+            }
+            
+            if(isset($inputToRender['blockId'])) {
+                $inputToRender['name'] = $inputToRender['blockId'].'[0]['.$inputToRender['name'] .']';
+            }
+            
+            ob_start();
+            extract($inputToRender);
+            require $file;
+            $out = ob_get_clean();        
+            return $out;
+            
+        } else {
+            
+            throw new \Exception("The view file does not exist: $file");
+            
+        }
     }
     
     private function sanitazeInput($input, $values = '') 
@@ -105,30 +137,6 @@ class Builder
         }
         
         return $inputToRender;
-    }
-    
-    private function renderInput($input, $values) 
-    {
-        $inputToRender = $this->sanitazeInput($input, $values);
-        $file = dirname(__FILE__) . $this->inputs[$inputToRender['input']];
-        if (file_exists($file)) {
-            
-            if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
-                $inputToRender['name'] = $inputToRender['name'] .'[]';    
-            }
-            
-            if(isset($inputToRender['blockId'])) {
-                $inputToRender['name'] = $inputToRender['blockId'].'[0]['.$inputToRender['name'] .']';
-            }
-            
-            ob_start();
-            extract($inputToRender);
-            require $file;
-            $out = ob_get_clean();        
-            return $out;
-        } else {
-            throw new \Exception("The view file does not exist: $file");
-        }
     }
     
     private function isBlock($input) 
