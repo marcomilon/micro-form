@@ -4,7 +4,7 @@
 <div class="repeater">
     <div class="element">
         <?php if($repeat): ?>
-            <div class="toolbar--delete">
+            <div class="toolbar--delete" style="display:none">
                 <a href="#" class="toolbar--delete__delete">Delete Item</a>
             </div>
         <?php endif; ?>
