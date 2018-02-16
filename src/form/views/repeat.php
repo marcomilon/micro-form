@@ -1,5 +1,5 @@
 <div class="toolbar--add">
-    <a href="#" class="toolbar--add__add">Add Item</a>
+    <a href="#" class="<?= $block ? 'toolbar--add__block' : 'toolbar--add__add' ?>">Add Item</a>
 </div>
 <div class="repeater">
     <div class="element">

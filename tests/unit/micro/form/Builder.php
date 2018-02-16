@@ -86,7 +86,7 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        $this->string($form)->contains('toolbar--add')
+        $this->string($form)->contains('toolbar--add__add')
                             ->contains('repeater')
                             ->contains('element')
                             ->contains('toolbar--delete')
@@ -100,7 +100,7 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        $this->string($form)->contains('toolbar--add')
+        $this->string($form)->contains('toolbar--add__block')
                             ->contains('repeater')
                             ->contains('element')
                             ->contains('toolbar--delete')
