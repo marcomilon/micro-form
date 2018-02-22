@@ -1,4 +1,11 @@
+<?php 
+    // Template variables
+    $for = isset($id) ? " for=\"$id\"" : "";
+    $id = isset($id) ? " id=\"$id\"" : "";
+    $value = isset($value) ? " value=\"$value\"" : "";
+    $placeholder = isset($placeholder) ? " placeholder=\"$placeholder\"" : "";
+?>
 <div class="form-group">
-    <label<?= isset($id) ? ' for="'. $id . '"' : '' ?>><?= $label ?></label>
-    <input type="<?= $input ?>" class="form-control" name="<?= $name ?>"<?= isset($placeholder) ? ' placeholder="' . $placeholder . '"' : ''?><?= isset($id) ? ' id="' . $id . '"' : ''?><?= isset($value) ? ' value="'.$value.'"' : '' ?>>
+    <label<?= $for ?>><?= $label ?></label>
+    <input type="<?= $input ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
 </div>
