@@ -21,6 +21,13 @@ class Builder
         'blockId'
     ];
     
+    private $config = [];
+    
+    public function __construct($config = []) 
+    {
+        $this->config = $config;
+    }
+    
     public function render($microForm, $values = []) 
     {
         $output = '';
@@ -72,9 +79,17 @@ class Builder
     private function renderInput($input, $values) 
     {
         $inputToRender = $this->sanitazeInput($input, $values);
-        $file = dirname(__FILE__) . $this->inputs[$inputToRender['input']];
         
-        if (file_exists($file)) {
+        if(isset($this->config[$inputToRender['input']])){
+            $templateFile = $this->config[$inputToRender['input']];
+        } else {
+            $path = dirname(__FILE__);
+            $templateFile = $path . $this->inputs[$inputToRender['input']];
+        }
+        
+        $file = $templateFile;
+        
+        if ($file != $path && file_exists($file)) {
             
             if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
                 $inputToRender['name'] = $inputToRender['name'] .'[]';    
@@ -100,7 +115,8 @@ class Builder
     private function sanitazeInput($input, $values = '') 
     {
         if(is_array($input)) {
-            if(!array_key_exists($input['input'], $this->inputs)) {
+            
+            if(!array_key_exists($input['input'], $this->config) && !array_key_exists($input['input'], $this->inputs)) {
                 throw new \Exception("Unsupported input tag: " . $input['input']);
             }
             
