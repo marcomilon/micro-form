@@ -47,6 +47,16 @@ class Builder extends atoum
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
     }
     
+    public function testInputComplexPassword() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/complex/input-password-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/complex/input-password.html';
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
+    
     public function testInputUnsuported() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/complex/input-unsupported-tpl.json');

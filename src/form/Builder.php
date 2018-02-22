@@ -9,6 +9,7 @@ class Builder
     private $inputs = [
         'text' => '/views/input-text.php',
         'email' => '/views/input-text.php',
+        'password' => '/views/input-text.php',
         'textarea' => '/views/textarea.php'
     ];
     
