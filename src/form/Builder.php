@@ -89,7 +89,7 @@ class Builder
         
         $file = $templateFile;
         
-        if ($file != $path && file_exists($file)) {
+        if (file_exists($file)) {
             
             if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
                 $inputToRender['name'] = $inputToRender['name'] .'[]';    

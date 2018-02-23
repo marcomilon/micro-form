@@ -118,4 +118,17 @@ class Builder extends atoum
                             ->contains('users[0][password]');
     }
     
+    public function testCustomTemplate() {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text-horizontal.html';
+    
+        $templates = [
+            'text' => dirname(__FILE__) . '/../../../templates/horizontal/input-text.php'
+        ];
+        
+        $builder = new \micro\form\Builder($templates);
+        $form = $builder->render($microForm);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
+    
 }
