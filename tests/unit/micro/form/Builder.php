@@ -118,17 +118,30 @@ class Builder extends atoum
                             ->contains('users[0][password]');
     }
     
-    public function testCustomTemplate() {
+    public function testCustomTextInput() {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text-horizontal.html';
     
         $templates = [
             'text' => dirname(__FILE__) . '/../../../templates/horizontal/input-text.php'
         ];
-        
+    
         $builder = new \micro\form\Builder($templates);
         $form = $builder->render($microForm);
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
     }
     
+    public function testCustomTextarea() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/textarea/textarea-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/textarea/textarea-horizontal.html';
+    
+        $templates = [
+            'textarea' => dirname(__FILE__) . '/../../../templates/horizontal/textarea.php'
+        ];
+        
+        $builder = new \micro\form\Builder($templates);
+        $form = $builder->render($microForm);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
 }
