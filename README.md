@@ -1,5 +1,7 @@
 # micro-form
 
+[![Build Status](https://travis-ci.org/marcomilon/micro-form.svg?branch=master)](https://travis-ci.org/marcomilon/micro-form)
+
 Micro-form is a library to translate Json objects into Html forms. Boostrap forms are used as the default template but can easily add new templates.
 
 ### Installation
