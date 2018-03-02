@@ -2,7 +2,7 @@
   "name": "fullstackpe/micro-form",
   "description": "Form builder",
   "license": "MIT",
-  "keywords": ["form builder"],
+  "keywords": ["form builder", "json"],
   "authors": [
     {
       "name": "Marco Milon",
