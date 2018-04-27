@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "Micro form generator",
+    "type": "array",
+    "items": {
+        "title": "Micro form input",
+        "type": "object"
+        "properties": {
+            "block": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "type": {
+                            "description": "The input type to generate. values can be: text, password, textarea",
+                            "type": "string"
+                        },
+                        "id": {
+                            "description": "The id attribute of the input",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "The name attribute of the input",
+                            "type": "string"
+                        },
+                        "label": {
+                            "description": "The label attribute of the input",
+                            "type": "string"
+                        },
+                        "placeholder": {
+                            "description": "The label attribute of the input",
+                            "type": "string"
+                        },
+                        "repeat": {
+                            "description": "Boolean value to make the input repetable",
+                            "type": "boolean"
+                        }
+                        
+                    },
+                    "required": ["name"]
+                },
+            },
+            "repeat": {
+                "description": "Boolean value to make the input repetable",
+                "type": "boolean"
+            }
+        },
+        "required": ["block"]
+    }
+}
