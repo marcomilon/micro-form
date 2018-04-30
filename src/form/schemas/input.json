@@ -4,7 +4,7 @@
     "type": "array",
     "items": {
         "title": "Micro form input",
-        "type": "object"
+        "type": "object",
         "properties": {
             "block": {
                 "type": "array",
@@ -34,10 +34,9 @@
                             "description": "Boolean value to make the input repetable",
                             "type": "boolean"
                         }
-                        
                     },
                     "required": ["name"]
-                },
+                }
             },
             "repeat": {
                 "description": "Boolean value to make the input repetable",

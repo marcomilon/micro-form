@@ -2,6 +2,8 @@
 
 namespace micro\form;
 
+use JsonSchema\Validator;
+
 class Builder
 {
     private $repeatTemplate = '/views/repeat.php';
@@ -31,6 +33,13 @@ class Builder
     public function render($microForm, $values = []) 
     {
         $output = '';
+        
+        $validator = new Validator();
+        $validator->validate($microForm, (object)['$ref' => 'file://' . dirname(__FILE__) . '/schemas/input.json']);
+        
+        if (!$validator->isValid()) {
+            throw new \Exception("The supplied JSON validates against the schema.\n");
+        } 
         
         $microForm = json_decode($microForm, true);                
         

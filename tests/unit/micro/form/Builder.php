@@ -139,7 +139,7 @@ class Builder extends atoum
         $templates = [
             'textarea' => dirname(__FILE__) . '/../../../templates/horizontal/textarea.php'
         ];
-        
+    
         $builder = new \micro\form\Builder($templates);
         $form = $builder->render($microForm);
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
