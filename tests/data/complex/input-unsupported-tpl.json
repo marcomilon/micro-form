@@ -1,7 +1,9 @@
-[
-    {
-        "input": "cv",
-        "name": "description", 
-        "id": "description"
-    }
-]
+{
+    "inputs": [
+        {
+            "input": "cv",
+            "name": "description", 
+            "id": "description"
+        }
+    ]
+}

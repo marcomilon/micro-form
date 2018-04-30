@@ -1,14 +1,14 @@
-[
-    {
-        "users": [
-            {
-                "input": "text",
-                "name": "username"
-            },
-            {
-                "input": "text",
-                "name": "password"
-            }
-        ]
-    }
-]
+{
+    "name": "users",
+    "repeat": true,
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username"
+        },
+        {
+            "input": "text",
+            "name": "password"
+        }
+    ]
+}

@@ -1,4 +1,10 @@
-[
-    "name",
-    "lastname"
-]
+{
+    "inputs": [
+        {
+            "name": "name"
+        },
+        {
+            "name": "lastname"
+        }
+    ]
+}

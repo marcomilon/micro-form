@@ -1,7 +1,9 @@
-[
-    {
-        "input": "textarea",
-        "name": "description", 
-        "id": "description"
-    }
-]
+{
+    "inputs": [
+        {
+            "input": "textarea",
+            "name": "description", 
+            "id": "description"
+        }
+    ]
+}

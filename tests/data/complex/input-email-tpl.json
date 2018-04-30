@@ -1,6 +1,8 @@
-[
-    {
-        "input": "email",
-        "name": "email"
-    }
-]
+{
+    "inputs": [
+        {
+            "input": "email",
+            "name": "email"
+        }
+    ]
+}

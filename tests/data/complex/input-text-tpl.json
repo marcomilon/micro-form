@@ -1,9 +1,11 @@
-[
-    {
-        "input": "text",
-        "name": "username", 
-        "id": "username",
-        "placeholder": "Username",
-        "label": "Enter username"
-    }
-]
+{
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username", 
+            "id": "username",
+            "placeholder": "Username",
+            "label": "Enter username"
+        }
+    ]
+}

@@ -30,31 +30,37 @@ class Builder
         $this->config = $config;
     }
     
+    public function validateSchema($json) 
+    {
+        $jsonObj = json_decode($json);
+        $validator = new Validator();
+        $validator->validate($jsonObj, (object)['$ref' => 'file://' . dirname(__FILE__) . '/schemas/input.json']); 
+        
+        return $validator;
+    }
+    
     public function render($microForm, $values = []) 
     {
         $output = '';
         
-        $validator = new Validator();
-        $validator->validate($microForm, (object)['$ref' => 'file://' . dirname(__FILE__) . '/schemas/input.json']);
-        
+        $validator = $this->validateSchema($microForm);
         if (!$validator->isValid()) {
-            throw new \Exception("The supplied JSON validates against the schema.\n");
+            $errorStr = "";
+            foreach ($validator->getErrors() as $error) {
+                $errorStr .= $error['property'] ." ". $error['message'] . "\n";
+            }
+            throw new \Exception("The supplied JSON validates against the schema: $errorStr.\n");
         } 
         
-        $microForm = json_decode($microForm, true);                
+        $microForm = json_decode($microForm, true);       
         
-        if(!is_array($microForm)) {
-            throw new \Exception("The form variable is not valid.");
-        }
+        $block = $this->getBlock($microForm);
         
-        foreach($microForm as $input) {
-            
-            $block = $this->isBlock($input);
-            
-            if($block) { 
-                
-                $blockId = key($input);
-                $inputs = current($input);
+        foreach($microForm['inputs'] as $input) {
+
+            if(!empty($block)) { 
+                $blockId = $block['name'];
+                $inputs = $block['inputs'];
                 
                 foreach($inputs as $blockInputs) {
                     $blockInputs['blockId'] = $blockId;
@@ -123,14 +129,10 @@ class Builder
     
     private function sanitazeInput($input, $values = '') 
     {
-        if(is_array($input)) {
+        if(isset($input['input'])) {
             
             if(!array_key_exists($input['input'], $this->config) && !array_key_exists($input['input'], $this->inputs)) {
                 throw new \Exception("Unsupported input tag: " . $input['input']);
-            }
-            
-            if(!isset($input['name'])) {
-                throw new \Exception("Name parameter is required.");
             }
             
             $inputToRender = [];
@@ -154,20 +156,26 @@ class Builder
         
         $inputToRender = [
             'input' => 'text',
-            'label' => ucfirst($input),
-            'name' => $input
+            'label' => ucfirst($input['name']),
+            'name' => $input['name']
         ];
         
-        if(!empty($values) && array_key_exists($input, $values)) {
-            $inputToRender['value'] = $values[$input];
+        if(!empty($values) && array_key_exists($input['name'], $values)) {
+            $inputToRender['value'] = $values[$input['name']];
         }
         
         return $inputToRender;
     }
     
-    private function isBlock($input) 
+    private function getBlock($microForm) 
     {
-        $firstInput = is_array($input) ? current($input) : '';
-        return is_array($firstInput);
+        $block = [];
+        if(isset($microForm['repeat'])) {
+            $block['name'] = $microForm['name'];
+            $block['repeat'] = $microForm['repeat'];
+            $block['inputs'] = $microForm['inputs'];
+        }
+        
+        return $block;
     }
 }

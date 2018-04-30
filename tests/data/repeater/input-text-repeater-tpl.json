@@ -1,7 +1,9 @@
-[
-    {
-        "input": "text",
-        "name": "username",
-        "repeat": true
-    }
-]
+{
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username",
+            "repeat": true
+        }
+    ]
+}
