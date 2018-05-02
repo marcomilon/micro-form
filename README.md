@@ -15,22 +15,38 @@ If you prefer you can create a composer.json in your project folder.
 ```json
 {
     "require": {
-        "fullstackpe/micro-form": "^1.0"
+        "fullstackpe/micro-form": "^2.0"
     }
 }
 ```
 
 #### How it works?
 
+Micro-form reads a json file to render an Html form. The json file is just an object with three properties: name, inputs, repeat.
+
+* _name_ is the name of the array of inputs.
+* _inputs_ is an array objects that represents the inputs.
+* _repeat_ is a boolean value to set the array of inputs repeatable.
+
+The json used to render the form has to validated against this [Json-schema](https://github.com/marcomilon/micro-form/blob/master/src/form/schemas/input.json).
+
+**Examples**
+
 Create an instance of the class micro\form\Builder 
 
 ```php 
 <?php
 
-$json = '[
-    "name",
-    "lastname"
-]';
+$json = '{
+    "inputs": [
+        {
+            "name": "name"
+        },
+        {
+            "name": "lastname"
+        }
+    ]
+}';
 
 $builder = new \micro\form\Builder();
 $form = $builder->render($json);
@@ -56,15 +72,17 @@ It is possible to use more complex Json objects for example
 ```php 
 <?php
 
-$json = '[
-    {
-        "input": "text",
-        "name": "username", 
-        "id": "username",
-        "placeholder": "Username",
-        "label": "Enter username"
-    }
-]';
+$json = '{
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username", 
+            "id": "username",
+            "placeholder": "Username",
+            "label": "Enter username"
+        }
+    ]
+}';
 
 $builder = new \micro\form\Builder();
 $form = $builder->render($json);
@@ -85,13 +103,15 @@ Repeaters are supported out of the box for example
 ```php 
 <?php
 
-$json = '[
-    {
-        "input": "text",
-        "name": "username",
-        "repeat": true
-    }
-]';
+$json = '{
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username",
+            "repeat": true
+        }
+    ]
+}';
 
 $builder = new \micro\form\Builder();
 $form = $builder->render($json);
@@ -123,20 +143,20 @@ You can create block with inputs to repeat for example
 <?php
 
 // Json represent a block with id "users" and with two imputs: username and password.
-$json = '[
-    {
-        "users": [
-            {
-                "input": "text",
-                "name": "username"
-            },
-            {
-                "input": "text",
-                "name": "password"
-            }
-        ]
-    }
-]';
+$json = '{
+    "name": "users",
+    "repeat": true,
+    "inputs": [
+        {
+            "input": "text",
+            "name": "username"
+        },
+        {
+            "input": "text",
+            "name": "password"
+        }
+    ]
+}';
 
 $builder = new \micro\form\Builder();
 $form = $builder->render($json);
@@ -170,10 +190,16 @@ Micro-form supports default values too. Just send a key value array as the secon
 ```php 
 <?php
 
-$json = '[
-    "name",
-    "lastname"
-]';
+$json = '{
+    "inputs": [
+        {
+            "name": "name"
+        },
+        {
+            "name": "lastname"
+        }
+    ]
+}]';
 
 $builder = new \micro\form\Builder();
 $form = $builder->render($json, ['name' => 'marco', 'lastname' => 'milon']);
