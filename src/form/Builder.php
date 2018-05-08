@@ -76,7 +76,16 @@ class Builder
       
       foreach($microForm['inputs'] as $input) {
         $output = "";
-        $output .= $this->renderInput($input, $values);
+        
+        if(is_array($values)) {
+          $defaultValues = current($values);
+          foreach($defaultValues as $value) {
+            $output .= $this->renderInput($input, [$input['name'] => $value]);
+          }
+        } else {
+          $output .= $this->renderInput($input, $values);
+        }
+        
         $output .= PHP_EOL;
         
         if(isset($input['repeat']) && $input['repeat'] == true) {

@@ -118,6 +118,20 @@ class Builder extends atoum
         $this->string($form)->isEqualTo($expectedRendering);
     }
     
+    public function testRepeatInputSimpleTextValue() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-simple-text-repeater-tpl.json');
+        $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-simple-text-repeater-value.html');
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm, ['username' => ['n1', 'n2', 'n3']]);
+    
+        $form = $this->flatString($form);
+        $expectedRendering = $this->flatString($expectedRendering);
+    
+        $this->string($form)->isEqualTo($expectedRendering);
+    }
+    
     public function testRepeatInputTwoText() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-two-text-repeater-tpl.json');
