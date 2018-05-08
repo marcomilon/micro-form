@@ -93,35 +93,31 @@ class Builder extends atoum
     public function testRepeatInputSimpleText() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-text-repeater-tpl.json');
-        $actualRender = dirname(__FILE__) . '/../../../data/repeater/input-text-repeater-render.html';
+        $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-text-repeater.html');
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        file_put_contents($actualRender, $form);
-        $this->string($form)->contains('toolbar--add__add')
-                            ->contains('repeater')
-                            ->contains('element')
-                            ->contains('toolbar--delete')
-                            ->contains('username[]');
+        
+        $form = $this->flatString($form);
+        $expectedRendering = $this->flatString($expectedRendering);
+        
+        $this->string($form)->isEqualTo($expectedRendering);
     }
     
     public function testRepeatBlock() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-block-repeater-tpl.json');
-        $expectedRendering = dirname(__FILE__) . '/../../../data/repeater/input-block-repeater.html';
-        $actualRender = dirname(__FILE__) . '/../../../data/repeater/input-block-repeater-render.html';
-    
+        $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-block-repeater.html');
+        
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        file_put_contents($actualRender, $form);
-        $this->string($form)->contains('toolbar--add__block')
-                            ->contains('repeater')
-                            ->contains('element')
-                            ->contains('toolbar--delete')
-                            ->contains('users[0][username]')
-                            ->contains('users[0][password]');
+        
+        $form = $this->flatString($form);
+        $expectedRendering = $this->flatString($expectedRendering);
+        
+        $this->string($form)->isEqualTo($expectedRendering);
     }
-     
+    
     public function testCustomTextInput() {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
         $expectedRendering = dirname(__FILE__) . '/../../../data/simple/input-text-horizontal.html';
@@ -147,5 +143,9 @@ class Builder extends atoum
         $builder = new \micro\form\Builder($templates);
         $form = $builder->render($microForm);
         $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
+    
+    private function flatString($str) {
+      return preg_replace('/\s*/m', '', $str);
     }
 }
