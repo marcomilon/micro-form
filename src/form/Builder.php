@@ -110,7 +110,6 @@ class Builder
     $file = $templateFile;
     
     if (file_exists($file)) {
-      
       if(isset($inputToRender['repeat']) && $inputToRender['repeat'] == true) {
         $inputToRender['name'] = $inputToRender['name'] .'[]';    
       }
@@ -164,6 +163,10 @@ class Builder
       'label' => ucfirst($input['name']),
       'name' => $input['name']
     ];
+    
+    if(isset($input['repeat']) && $input['repeat']) {
+      $inputToRender['repeat'] = true;
+    }
     
     if(!empty($values) && array_key_exists($input['name'], $values)) {
       $inputToRender['value'] = $values[$input['name']];

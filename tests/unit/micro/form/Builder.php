@@ -104,6 +104,20 @@ class Builder extends atoum
         $this->string($form)->isEqualTo($expectedRendering);
     }
     
+    public function testRepeatInputSimpleTextNoInput() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-simple-text-repeater-tpl.json');
+        $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-simple-text-repeater.html');
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm);
+    
+        $form = $this->flatString($form);
+        $expectedRendering = $this->flatString($expectedRendering);
+    
+        $this->string($form)->isEqualTo($expectedRendering);
+    }
+    
     public function testRepeatInputTwoText() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-two-text-repeater-tpl.json');
@@ -112,10 +126,10 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        
+    
         $form = $this->flatString($form);
         $expectedRendering = $this->flatString($expectedRendering);
-        
+    
         $this->string($form)->isEqualTo($expectedRendering);
     }
     
@@ -127,7 +141,7 @@ class Builder extends atoum
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-        
+    
         $form = $this->flatString($form);
         $expectedRendering = $this->flatString($expectedRendering);
     
