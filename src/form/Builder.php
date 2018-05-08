@@ -72,8 +72,10 @@ class Builder
       
     } else {
       
+      $buffer = "";
+      
       foreach($microForm['inputs'] as $input) {
-        
+        $output = "";
         $output .= $this->renderInput($input, $values);
         $output .= PHP_EOL;
         
@@ -84,10 +86,13 @@ class Builder
           $output = ob_get_clean();
         }
         
+        $buffer .= $output;
+        $output = "";
       }
       
+      $output = $buffer;
     }
-    
+        
     return $output;
   }
   
