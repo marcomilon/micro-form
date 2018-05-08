@@ -39,7 +39,7 @@ class Builder
     return $validator;
   }
   
-  public function render($microForm, $values = []) 
+  public function render($microForm, $values = null) 
   {
     $output = '';
     
@@ -79,9 +79,15 @@ class Builder
         
         if(is_array($values)) {
           $defaultValues = current($values);
-          foreach($defaultValues as $value) {
-            $output .= $this->renderInput($input, [$input['name'] => $value]);
+          
+          if(is_array($defaultValues)) {
+            foreach($defaultValues as $value) {
+              $output .= $this->renderInput($input, [$input['name'] => $value]);
+            }
+          } else {
+              $output .= $this->renderInput($input, $values);
           }
+          
         } else {
           $output .= $this->renderInput($input, $values);
         }
@@ -101,7 +107,7 @@ class Builder
       
       $output = $buffer;
     }
-        
+    
     return $output;
   }
   
