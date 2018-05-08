@@ -108,6 +108,7 @@ class Builder extends atoum
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-two-text-repeater-tpl.json');
         $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-two-text-repeater.html');
+        $actualRender = dirname(__FILE__) . '/../../../data/repeater/input-two-text-repeater-actual.html';
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
@@ -122,10 +123,11 @@ class Builder extends atoum
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-block-repeater-tpl.json');
         $expectedRendering = file_get_contents(dirname(__FILE__) . '/../../../data/repeater/input-block-repeater.html');
+        $actualRender = dirname(__FILE__) . '/../../../data/repeater/input-block-repeater-actual.html';
     
         $builder = new \micro\form\Builder();
         $form = $builder->render($microForm);
-    
+        
         $form = $this->flatString($form);
         $expectedRendering = $this->flatString($expectedRendering);
     
