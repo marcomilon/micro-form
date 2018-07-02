@@ -75,7 +75,7 @@ It is possible to use more complex Json objects for example
 $json = '{
     "inputs": [
         {
-            "input": "text",
+            "type": "text",
             "name": "username", 
             "id": "username",
             "placeholder": "Username",
@@ -106,7 +106,7 @@ Repeaters are supported out of the box for example
 $json = '{
     "inputs": [
         {
-            "input": "text",
+            "type": "text",
             "name": "username",
             "repeat": true
         }
@@ -148,11 +148,11 @@ $json = '{
     "repeat": true,
     "inputs": [
         {
-            "input": "text",
+            "type": "text",
             "name": "username"
         },
         {
-            "input": "text",
+            "type": "text",
             "name": "password"
         }
     ]
@@ -239,7 +239,7 @@ A bootstrap horizontal input text will look like this::
 <div class="form-group row">
     <label<?= $for ?> class="col-sm-2 col-form-label"><?= $label ?></label>
     <div class="col-sm-10">
-        <input type="<?= $input ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
+        <input type="<?= $type ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
     </div>
 </div>
 ```
@@ -281,10 +281,6 @@ $builder = new \micro\form\Builder($templates);
 $form = $builder->render($microForm);
 $this->string($form)->isEqualToContentsOfFile($expectedRendering);
 ```
-
-### Note
-
-This library is part of the [micro php framework](https://github.com/marcomilon/micro).
 
 ### Contribution
 
