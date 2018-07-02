@@ -67,7 +67,7 @@ class Builder extends atoum
             function() use($builder, $microForm) {
                 $form = $builder->render($microForm);
             }
-        )->hasMessage('Unsupported input tag: cv');
+        )->hasMessage('Unsupported input type: cv');
     }
     
     public function testInputSimpleTextValue() 

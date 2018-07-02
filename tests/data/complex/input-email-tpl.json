@@ -1,7 +1,7 @@
 {
     "inputs": [
         {
-            "input": "email",
+            "type": "email",
             "name": "email"
         }
     ]

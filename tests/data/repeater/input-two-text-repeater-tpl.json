@@ -1,12 +1,12 @@
 {
     "inputs": [
         {
-            "input": "text",
+            "type": "text",
             "name": "username",
             "repeat": true
         },
         {
-            "input": "text",
+            "type": "text",
             "name": "lastname",
             "repeat": true
         }

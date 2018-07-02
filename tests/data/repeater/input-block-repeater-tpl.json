@@ -3,11 +3,11 @@
     "repeat": true,
     "inputs": [
         {
-            "input": "text",
+            "type": "text",
             "name": "username"
         },
         {
-            "input": "text",
+            "type": "text",
             "name": "password"
         }
     ]

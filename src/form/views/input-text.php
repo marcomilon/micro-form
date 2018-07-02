@@ -7,5 +7,5 @@
 ?>
 <div class="form-group">
     <label<?= $for ?>><?= $label ?></label>
-    <input type="<?= $input ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
+    <input type="<?= $type ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
 </div>
