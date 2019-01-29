@@ -12,13 +12,15 @@ class Builder
         'text' => '/views/input-text.php',
         'email' => '/views/input-text.php',
         'password' => '/views/input-text.php',
-        'textarea' => '/views/textarea.php'
+        'textarea' => '/views/textarea.php',
+        'dropdown' => '/views/dropdown.php'
     ];
     
     private $optionalParameters = [
         'label',
         'id',
-        'placeholder',
+        'placeholder',        
+        'options',
         'repeat',
         'blockId'
     ];

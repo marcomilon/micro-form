@@ -192,4 +192,14 @@ class Builder extends atoum
     private function flatString($str) {
       return preg_replace('/\s*/m', '', $str);
     }
+    
+    public function testInputSimpleDropDown() 
+    {
+        $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/dropdown-menu-tpl.json');
+        $expectedRendering = dirname(__FILE__) . '/../../../data/simple/dropdown-menu.html';
+    
+        $builder = new \micro\form\Builder();
+        $form = $builder->render($microForm);
+        $this->string($form)->isEqualToContentsOfFile($expectedRendering);
+    }
 }
