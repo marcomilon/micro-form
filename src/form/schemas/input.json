@@ -43,7 +43,11 @@
                     },
                     "value": {
                         "description": "The value attribute of the input",
-                        "type": "string"
+                        "type": "string"                        
+                    },
+                    "options": {
+                        "description": "An array of key, value attribute of the input",
+                        "type": "object"
                     },            
                     "repeat": {
                         "description": "Boolean value to make the input repetable",
