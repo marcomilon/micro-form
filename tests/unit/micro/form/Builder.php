@@ -7,6 +7,9 @@ use atoum;
 class Builder extends atoum
 {
     
+    /**
+    * @tags simpleText
+    */
     public function testInputSimpleText() 
     {
         $microForm = file_get_contents(dirname(__FILE__) . '/../../../data/simple/input-text-tpl.json');
