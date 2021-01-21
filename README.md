@@ -1,8 +1,6 @@
 # micro-form
 
-[![Latest Stable Version](https://poser.pugx.org/fullstackpe/micro-form/v/stable)](https://packagist.org/packages/fullstackpe/micro-form) [![Build Status](https://travis-ci.org/marcomilon/micro-form.svg?branch=master)](https://travis-ci.org/marcomilon/micro-form)
-
-Micro-form is a library to translate Json objects into Html forms. Boostrap forms are used as the default template but can easily add new templates.
+Micro-form is a library to translate any datasource into into html form elements. Only Json Objects can be use as datasources.
 
 ### Installation
 
@@ -15,271 +13,122 @@ If you prefer you can create a composer.json in your project folder.
 ```json
 {
     "require": {
-        "fullstackpe/micro-form": "^2.0"
+        "fullstackpe/micro-form": "^3.0"
     }
 }
 ```
 
-#### How it works?
+### How it works?
 
-Micro-form reads a json file to render an Html form. The json file is just an object with three properties: name, inputs, repeat.
+Create a `jsform` object.
 
-* _name_ is the name of the array of inputs.
-* _inputs_ is an array objects that represents the inputs.
-* _repeat_ is a boolean value to set the array of inputs repeatable.
+```
+use micro\FormFactory;
+$jsonForm = FormFactory::jsonForm();
+echo $jsonForm->render($json);
+```
 
-The json used to render the form has to validated against this [Json-schema](https://github.com/marcomilon/micro-form/blob/master/src/form/schemas/input.json).
+then call render to get the form elements. The render method accepts a Json Object.
 
 **Examples**
 
-Create an instance of the class micro\form\Builder 
+**Input**
 
 ```php 
 <?php
 
-$json = '{
-    "inputs": [
-        {
-            "name": "name"
-        },
-        {
-            "name": "lastname"
-        }
-    ]
-}';
+$json = '[
+    {
+        "tag": "input",
+        "type": "text",
+        "name": "username",
+        "class": "form-control"
+    }
+]';
 
-$builder = new \micro\form\Builder();
-$form = $builder->render($json);
-echo $form;
+use micro\FormFactory;
+$jsonForm = FormFactory::jsonForm();
+echo $jsonForm->render($json);
 ```
 
-The php code will produce the following html form inputs.
-
+*output*
 
 ```html 
-<div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" value="marco">
-</div>
-<div class="form-group">
-    <label>Lastname</label>
-    <input type="text" class="form-control" name="lastname" value="milon">
-</div>
+<input type="text" name="username" class="form-control">
 ```
 
-It is possible to use more complex Json objects for example
+**Textarea**
 
 ```php 
 <?php
 
-$json = '{
-    "inputs": [
-        {
-            "type": "text",
-            "name": "username", 
-            "id": "username",
-            "placeholder": "Username",
-            "label": "Enter username"
-        }
-    ]
-}';
+$json = '[
+    {
+        "tag": "textarea",
+        "id": "story",
+        "name": "story",
+        "rows": "5",
+        "cols": "33",
+        "value": "It was a dark and stormy night..."
+    }
+]';
 
-$builder = new \micro\form\Builder();
-$form = $builder->render($json);
-echo $form;
+use micro\FormFactory;
+$jsonForm = FormFactory::jsonForm();
+echo $jsonForm->render($json);
 ```
 
-The example will output the following html inputs.
+*output*
 
 ```html
-<div class="form-group">
-    <label for="username">Enter username</label>
-    <input type="text" class="form-control" name="username" placeholder="Username" id="username">
-</div>
+<textarea id="story" name="story" rows="5" cols="33">
+It was a dark and stormy night...
+</textarea>
 ```
 
-Repeaters are supported out of the box for example
+**Select**
 
 ```php 
 <?php
 
-$json = '{
-    "inputs": [
-        {
-            "type": "text",
-            "name": "username",
-            "repeat": true
-        }
-    ]
-}';
+$json = '[
+    {
+        "tag": "select",
+        "name": "pets",
+        "id": "pet-select",
+        "value": [
+            {
+                "tag": "option",
+                "label": "--Please choose an option--",
+                "value": ""
+            },
+            {
+                "tag": "option",
+                "label": "Dog",
+                "value": "dog"
+            },
+            {
+                "tag": "option",
+                "label": "Cat",
+                "value": "cat"
+            }
+        ]
+    }
+]';
 
-$builder = new \micro\form\Builder();
-$form = $builder->render($json);
-echo $form;
+use micro\FormFactory;
+$jsonForm = FormFactory::jsonForm();
+echo $jsonForm->render($json);
 ```
 
-html output 
+*output*
 
 ```html
-<div class="toolbar--add">
-    <a href="#" class="toolbar--add__add">Add Item</a>
-</div>
-<div class="repeater">
-    <div class="element">
-        <div class="toolbar--delete">
-            <a href="#" class="toolbar--delete__delete">Delete Item</a>
-        </div>
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username[]">
-        </div>
-    </div>
-</div>
-```
-
-You can create block with inputs to repeat for example
-
-```php 
-<?php
-
-// Json represent a block with id "users" and with two imputs: username and password.
-$json = '{
-    "name": "users",
-    "repeat": true,
-    "inputs": [
-        {
-            "type": "text",
-            "name": "username"
-        },
-        {
-            "type": "text",
-            "name": "password"
-        }
-    ]
-}';
-
-$builder = new \micro\form\Builder();
-$form = $builder->render($json);
-echo $form;
-```
-
-html output
-
-```html
-<div class="repeater">
-    <div class="element">
-        <div class="toolbar--delete" style="display:none">
-            <a href="#" class="toolbar__delete">Delete Item</a>
-        </div>
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="users[0][username]">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="text" class="form-control" name="users[0][password]">
-        </div>
-    </div>
-</div>
-```
-
-> Please note that in order to the repeater to work you need to add the file micro-form.js to your project.
-
-Micro-form supports default values too. Just send a key value array as the second parameter for the render method, for example
-
-```php 
-<?php
-
-$json = '{
-    "inputs": [
-        {
-            "name": "name"
-        },
-        {
-            "name": "lastname"
-        }
-    ]
-}]';
-
-$builder = new \micro\form\Builder();
-$form = $builder->render($json, ['name' => 'marco', 'lastname' => 'milon']);
-echo $form;
-```
-
-output
-
-```html
-<div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" value="marco">
-</div>
-<div class="form-group">
-    <label>Lastname</label>
-    <input type="text" class="form-control" name="lastname" value="milon">
-</div>
-```
-
-### Templates
-
-Templates are easy to add. for now only too types of templates are supported: input-text and textarea. 
-To add a template just create a php file as following
-
-#### input-text 
-
-A bootstrap horizontal input text will look like this::
-
-```php
-<?php 
-    // Template variables
-    $for = isset($id) ? " for=\"$id\"" : "";
-    $id = isset($id) ? " id=\"$id\"" : "";
-    $value = isset($value) ? " value=\"$value\"" : "";
-    $placeholder = isset($placeholder) ? " placeholder=\"$placeholder\"" : "";
-?>
-<div class="form-group row">
-    <label<?= $for ?> class="col-sm-2 col-form-label"><?= $label ?></label>
-    <div class="col-sm-10">
-        <input type="<?= $type ?>" class="form-control" name="<?= $name ?>"<?= $placeholder . $id . $value ?>>
-    </div>
-</div>
-```
-
-#### text-area 
-
-A bootstrap horizontal textarea will look like this:
-
-```php
-<?php 
-    // Template variables
-    $for = isset($id) ? " for=\"$id\"" : "";
-    $id = isset($id) ? " id=\"$id\"" : "";
-    $value = isset($value) ? $value : "";
-    $rows = isset($row) ? $row : '3';
-    $placeholder = isset($placeholder) ? " placeholder=\"$placeholder\"" : "";
-?>
-<div class="form-group row">
-    <label<?= $for ?> class="col-sm-2 col-form-label"><?= $label ?></label>
-    <div class="col-sm-10">
-        <textarea class="form-control"<?= $id ?> rows="<?= $rows ?>" name="<?= $name ?>"><?= $value ?></textarea>
-    </div>
-</div>
-```
-
-#### How to use your custom templates
-
-You only need to pass the path to your custom template as an array to the constructor, for example:
-
-```php
-<?php 
-
-$templates = [
-    'textarea' => dirname(__FILE__) . '/../../../templates/horizontal/textarea.php'
-];
-
-
-$builder = new \micro\form\Builder($templates);
-$form = $builder->render($microForm);
-$this->string($form)->isEqualToContentsOfFile($expectedRendering);
+<select name="pets" id="pet-select">
+    <option value="">--Please choose an option--</option>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+</select>
 ```
 
 ### Contribution

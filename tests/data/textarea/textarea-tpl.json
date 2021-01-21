@@ -1,9 +1,0 @@
-{
-    "inputs": [
-        {
-            "type": "textarea",
-            "name": "description", 
-            "id": "description"
-        }
-    ]
-}

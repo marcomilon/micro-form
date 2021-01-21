@@ -1,9 +1,0 @@
-{
-    "inputs": [
-        {
-            "type": "text",
-            "name": "username",
-            "repeat": true
-        }
-    ]
-}

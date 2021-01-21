@@ -1,9 +1,0 @@
-{
-    "inputs": [
-        {
-            "type": "cv",
-            "name": "description", 
-            "id": "description"
-        }
-    ]
-}
