@@ -3,7 +3,7 @@
 namespace micro;
 
 use Exception;
-use micro\interfaces\Datasource;
+use micro\Interfaces\Datasource;
 
 class Form
 {
@@ -47,7 +47,6 @@ class Form
                     ];
                 break;
                 case 'select':
-
                     $options = [];
                     foreach($attribute['value'] as $option) {
 

@@ -19,4 +19,41 @@ class FunctionsTest extends TestCase
         $this->assertEquals($actualOut, $expectedOut);
     }
 
+    public function testFuncRenderFromJson()
+    {
+        $jsonString = <<<EOS
+        [
+            {
+                "tag": "input",
+                "type": "text",
+                "name": "username",
+                "class": "form-control"
+            },
+            {
+                "tag": "input",
+                "type": "password",
+                "name": "password",
+                "class": "form-control"
+            },
+            {
+                "tag": "input",
+                "type": "color",
+                "id": "head",
+                "name": "head",
+                "value": "#e66465"
+            }
+        ]
+EOS;
+
+
+        $expected = <<<EOS
+<input type="text" name="username" class="form-control">
+<input type="password" name="password" class="form-control">
+<input type="color" id="head" name="head" value="#e66465">
+EOS;
+
+        $actualOut = renderFromJson($jsonString);
+
+        $this->assertEquals($actualOut, $expected);
+    }
 }
