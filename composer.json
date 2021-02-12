@@ -19,7 +19,10 @@
   "autoload": {
     "psr-4": {
       "micro\\": "src"
-    }
+    },
+    "files": [
+      "src/functions.php"
+    ]
   },
   "require-dev": {
     "phpunit/phpunit": "^9",

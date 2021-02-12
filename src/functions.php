@@ -2,7 +2,7 @@
 
 namespace micro;
 
-function expantAttr(array $attributes): string
+function expandAttr(array $attributes): string
 {
 
     $out = '';
@@ -16,7 +16,7 @@ function expantAttr(array $attributes): string
 
 function renderFromJson(string $jsonInput): string
 {
-    $jsonDs = new \micro\JsonDs();
-    $form = new \micro\Form($jsonDs);
+    $jsonDs = new JsonDs();
+    $form = new Form($jsonDs);
     return $form->render($jsonInput);
 }

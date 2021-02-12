@@ -1,5 +1,5 @@
-<select <?= \micro\expantAttr($attributes) ?>>
+<select <?= \micro\expandAttr($attributes) ?>>
 <?php foreach($options as $option): ?>
-    <option <?= \micro\expantAttr($option['attributes']) ?>><?= $option['label'] ?></option>
+    <option <?= \micro\expandAttr($option['attributes']) ?>><?= $option['label'] ?></option>
 <?php endforeach; ?>
 </select>

@@ -1,3 +1,3 @@
-<button <?= \micro\expantAttr($attributes) ?>>
+<button <?= \micro\expandAttr($attributes) ?>>
 <?= $value ?>
 </button>

@@ -9,7 +9,7 @@ class FunctionsTest extends TestCase
 
     public function testFuncAttributes() 
     {
-        $actualOut = expantAttr([
+        $actualOut = expandAttr([
             'id' => 'username',
             'type' => 'text',
             'name' => 'username',
