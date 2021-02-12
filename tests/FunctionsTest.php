@@ -1,5 +1,7 @@
 <?php 
 
+namespace micro;
+
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -7,7 +9,7 @@ class FunctionsTest extends TestCase
 
     public function testFuncAttributes() 
     {
-        $actualOut = _attr([
+        $actualOut = expantAttr([
             'id' => 'username',
             'type' => 'text',
             'name' => 'username',

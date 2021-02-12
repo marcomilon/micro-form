@@ -1,1 +1,1 @@
-<input <?= _attr($attributes) ?>>
+<input <?= \micro\expantAttr($attributes) ?>>
