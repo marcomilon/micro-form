@@ -6,10 +6,10 @@ use Exception;
 
 class Factory
 {
-    public static function makeElement($attributes, $template = '')
+    public static function makeElement($attributes, array $configuration)
     {
-
         $tag = $attributes['tag'] ?? '(empty tag)';
+        $template = $configuration[$tag] ?? '';
 
         switch ($tag) {
             case 'input':

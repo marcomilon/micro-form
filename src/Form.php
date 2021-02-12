@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace micro;
 
@@ -9,10 +9,21 @@ class Form
 {
 
     private $datasource;
+    private $configuration = [];
+    private $defaultConfigurationPath = '/../../../micro-form.config.json';
 
-    public function __construct(Datasource $datasource)
-    {
+    public function __construct(Datasource $datasource, $configurationPath = '')
+    {        
         $this->datasource = $datasource;
+
+        if(empty($configurationPath)) {
+            $configurationPath = $this->defaultConfigurationPath;
+        }
+
+        if(is_file($configurationPath)) {
+            $configurationStr = file_get_contents($configurationPath);
+            $this->configuration = $this->loadConfig($configurationStr);
+        }
     }
 
     public function render(string $input): string
@@ -21,14 +32,21 @@ class Form
 
         $out = '';
 
-        foreach($elements as $attrbutes) {
-            $element = Factory::makeElement($attrbutes);
+        foreach ($elements as $attrbutes) {
+            $element = Factory::makeElement($attrbutes, $this->configuration);
             $out .= $element->render() . PHP_EOL;
         }
-
-
 
         return trim($out);
     }
 
+    private function loadConfig(string $configuration) : array
+    {
+        $configArr = json_decode($configuration, true);
+        if($configArr === false) {
+            $configArr = [];
+        }
+        
+        return $configArr;
+    }
 }
