@@ -1,3 +1,3 @@
-<textarea <?= \micro\expandAttr($attributes) ?>>
-<?= $value ?>
+<textarea <?= \micro\expandAttr($attributes, ['tag', 'value']) ?>>
+<?= $attributes['value'] ?? '' ?>
 </textarea>

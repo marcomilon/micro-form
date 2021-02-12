@@ -21,6 +21,20 @@ class FunctionsTest extends TestCase
         $this->assertEquals($actualOut, $expectedOut);
     }
 
+    public function testFuncAttributesRemoveAttr() 
+    {
+        $actualOut = expandAttr([
+            'id' => 'username',
+            'type' => 'text',
+            'name' => 'username',
+            'class' => 'form-control'
+        ], ['class', 'name']);
+
+        $expectedOut = 'id="username" type="text"';
+
+        $this->assertEquals($actualOut, $expectedOut);
+    }
+
     public function testFuncRenderFromJson()
     {
         $jsonString = <<<EOS

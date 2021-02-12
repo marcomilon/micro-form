@@ -3,21 +3,21 @@
 namespace micro;
 
 use micro\Interfaces\Datasource;
-use micro\Element\Factory;
+use micro\Element\Element;
 
 class Form
 {
 
     private $datasource;
     private $configuration = [];
-    private $defaultConfigurationPath = '/../../../micro-form.config.json';
+    private $defaultConfigurationPath = '/../../../../micro-form.config.json';
 
     public function __construct(Datasource $datasource, $configurationPath = '')
     {        
         $this->datasource = $datasource;
 
         if(empty($configurationPath)) {
-            $configurationPath = $this->defaultConfigurationPath;
+            $configurationPath = dirname(__FILE__) . $this->defaultConfigurationPath;
         }
 
         if(is_file($configurationPath)) {
@@ -32,8 +32,8 @@ class Form
 
         $out = '';
 
-        foreach ($elements as $attrbutes) {
-            $element = Factory::makeElement($attrbutes, $this->configuration);
+        foreach ($elements as $attributes) {
+            $element = new Element($attributes, $this->configuration);
             $out .= $element->render() . PHP_EOL;
         }
 

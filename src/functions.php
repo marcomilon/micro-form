@@ -2,12 +2,17 @@
 
 namespace micro;
 
-function expandAttr(array $attributes): string
+function expandAttr(array $attributes, $removeAttr = []): string
 {
 
     $out = '';
 
     foreach ($attributes as $key => $value) {
+
+        if(!empty($removeAttr) && in_array($key, $removeAttr)) {
+            continue;
+        }
+
         $out .= $key . '="' . htmlentities($value) . '" ';
     }
 

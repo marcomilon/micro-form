@@ -1,1 +1,1 @@
-<input <?= \micro\expandAttr($attributes) ?>>
+<input <?= \micro\expandAttr($attributes, ['tag']) ?>>
