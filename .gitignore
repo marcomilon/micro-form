@@ -1,3 +1,4 @@
 /vendor/
 /tests/live/
 micro-form.code-workspace
+.DS_Store

@@ -1,0 +1,74 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c051dab5443605101eccf40925d6317c",
+    "packages": [
+        {
+            "name": "fullstackpe/micro-form",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcomilon/micro-form.git",
+                "reference": "6e4f7635e969f485be1f4ea7dfa4d84e26c6d236"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcomilon/micro-form/zipball/6e4f7635e969f485be1f4ea7dfa4d84e26c6d236",
+                "reference": "6e4f7635e969f485be1f4ea7dfa4d84e26c6d236",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.75",
+                "phpunit/phpunit": "^9"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "micro\\": "src"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Milon",
+                    "email": "marco.milon@gmail.com",
+                    "homepage": "https://github.com/marcomilon"
+                }
+            ],
+            "description": "Form builder",
+            "keywords": [
+                "form builder",
+                "json"
+            ],
+            "support": {
+                "issues": "https://github.com/marcomilon/micro-form/issues",
+                "source": "https://github.com/marcomilon/micro-form/tree/master"
+            },
+            "time": "2021-02-14T18:23:51+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "fullstackpe/micro-form": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

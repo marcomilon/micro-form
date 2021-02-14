@@ -1,0 +1,5 @@
+{
+    "require": {
+        "fullstackpe/micro-form": "dev-master"
+    }
+}

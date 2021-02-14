@@ -23,7 +23,7 @@ class Element
         return $out;
     }
 
-    private function findTemplate(array $attribute, array $configuration)
+    private function findTemplate(array $attribute, array $configuration) : string
     {
         $tag = $attribute['tag'];
         $id =  $attribute['id'] ?? '';

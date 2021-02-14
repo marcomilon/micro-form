@@ -1,0 +1,5 @@
+{
+    "input": "bootstrap/input.php",
+    "select": "bootstrap/select.php",
+    "textarea": "bootstrap/textarea.php"
+}
